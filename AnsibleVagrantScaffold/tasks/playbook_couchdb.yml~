@@ -1,0 +1,104 @@
+---
+#
+# EECS 4287/5287: Principles of Cloud Computing
+# Author: Aniruddha Gokhale
+# Created: Fall 2016
+# Modified: Fall 2020
+#
+# This playbook will install some packages on cloud VM
+# Our cloud can be Horizon Cloud VM or Chameleon VMs or AWS VMs
+
+  - name: download couchdb PPA repository
+    become: yes
+    get_url: 
+      url: https://couchdb.apache.org/repo/bintray-pubkey.asc
+      dest: /home/cc/
+
+  - name: apt-key as command
+    command: apt-key add /home/cc/bintray-pubkey.asc
+    become: yes
+
+  - name: add repository to file
+    become: yes
+    lineinfile:
+      dest: /etc/apt/sources.list
+      line: deb https://apache.bintray.com/couchdb-deb bionic main
+      
+  - name: Install couchdb
+    become: yes
+    apt:
+      name: couchdb
+      update_cache: yes
+    register: couchdb_install
+
+  - name: stop couchdb
+    become: yes
+    service:
+      name: couchdb
+      state: stopped
+    when: couchdb_install.changed
+
+  - name: couchdb bind to 0.0.0.0
+    become: yes
+    lineinfile: 
+      path: /opt/couchdb/etc/local.ini
+      regexp: ;bind_address = 127.0.0.1
+      line: bind_address = 0.0.0.0
+
+  - name: couchdb bind to port
+    become: yes
+    lineinfile:
+      path: /opt/couchdb/etc/local.ini
+      regexp: ;port=5984
+      line: port=5984
+
+  - name: couchdb admin setup
+    become: yes
+    lineinfile:
+      path: /opt/couchdb/etc/local.ini
+      line: admin = vandy
+      insertafter: ;admin = mysecretpassword
+
+  - name: set require_valid_user to false
+    become: yes
+    lineinfile:
+      path: /opt/couchdb/etc/local.ini
+      line: require_valid_user = false
+      regex: ;require_valid_user = false
+
+  - name: ufw disable firewall
+    command: ufw allow 5984
+    become: yes
+
+  - name: start couchdb
+    become: yes
+    service:
+      name: couchdb
+      state: started
+
+  - name: wait for couchdb
+    pause:
+      seconds: 15
+
+  - name: testing couchdb
+    uri:
+      url: http://admin:vandy@127.0.0.1:5984
+      method: GET
+
+  - name: copying createdb.py
+    copy:
+      src: ./createdb.py
+      dest: /home/cc/
+
+  - file: 
+      path: /home/cc/createdby.py
+      owner: cc
+      mode: 0700
+
+  - name: Creating database.
+    command: /home/cc/createdb.py
+
+
+
+...
+

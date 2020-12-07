@@ -1,0 +1,62 @@
+---
+##
+# EECS 4287/5287: Principles of Cloud Computing
+# Author: Aniruddha Gokhale
+# Created: Fall 2020
+#
+  - name: Start VT8-VM2
+    amazon.aws.ec2:
+      key_name: mykey
+      group: databases
+      instance_type: t2.micro
+      image: ami-123456
+      wait: yes
+      wait_timeout: 500
+      count: 5
+      instance_tags: #
+      monitoring: yes #Whether to use CloudWatch
+      vpc_subnet_id: vpc-c5d12bb8
+      assign_public_ip: yes
+    register: ec2
+    
+  ##- name: Add VT8-VM2 to temporary inventory
+  #  add_host:
+  #    name: VT8-VM2
+  #    groups: MyAmazonVMs
+  #    ansible_host: "{{ t8_vm1_params.openstack.accessIPv4 }}"
+  #    ansible_connection: ssh
+  #    ansible_ssh_private_key_file: /home/vagrant/.ssh/t8-varun-evan-sam.pem
+  #    ansible_user: cc
+
+  - name: Start VT8-VM3
+    amazon.aws.ec2:
+      key_name: mykey
+      group: databases
+      instance_type: t2.micro
+      image: ami-123456
+      wait: yes
+      wait_timeout: 500
+      count: 5
+      instance_tags: #
+        db: CouchDB
+      monitoring: yes
+      vpc_subnet_id: vpc-c5d12bb8
+      assign_public_ip: yes
+    register: ec2
+
+##  - name: Add VT8-VM3 to temporary inventory
+#    add_host:
+#      name: VT8-VM3
+#      groups: MyAmazonVMs
+#      ansible_host: "{{ t8_vm2_params.openstack.accessIPv4 }}"
+#      ansible_connection: ssh
+#      ansible_ssh_private_key_file: /home/vagrant/.ssh/t8-varun-evan-sam.pem
+#      ansible_user: cc
+
+  - name: Add all instance public IPs to host group
+    amazon.aws.ec2:
+      add_host: 
+        hostname: "{{ item.public_ip  }}"
+        groups: ec2hosts
+      loop: "{{ ec2.instances }}"
+... 

@@ -1,0 +1,46 @@
+---
+#
+# EECS 4287/5287: Principles of Cloud Computing
+# Author: Aniruddha Gokhale
+# Created: Fall 2020
+#
+  - name: Start a cloud server
+    openstack.cloud.server:
+        state: present
+        cloud: chameleon   # this is the nickname from our clouds.yaml file
+        name: t8-vm1     
+        image: CC-Ubuntu18.04
+        key_name: t8-varun-evan-sam
+        timeout: 200
+        flavor: m1.small
+        security_groups: "default,kafka,couchdb"
+        network: CH-822922-net
+        floating_ips:
+          - 129.114.25.233
+        result: server1
+
+  - name: show result of server1
+    debug: var=server1
+
+  - name: pausing for 10 minutes
+    pause:
+      minutes: 10
+
+  - name: Start second cloud
+    openstack.cloud.server:
+        state: present
+        cloud: chameleon
+        name: t8-vm2
+        image: CC-Ubuntu18.04
+        key_name: t8-varun-evan-sam
+        timeout: 200
+        flavor: m1.small
+        security_groups: "default,kafka,couchdb"
+        network: CH-822922-net
+        floating_ips:
+          - 129.114.27.249
+
+
+
+... 
+

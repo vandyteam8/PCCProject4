@@ -1,0 +1,107 @@
+---
+#
+# EECS 4287/5287: Principles of Cloud Computing
+# Author: Aniruddha Gokhale
+# Created: Fall 2016
+# Modified: Fall 2020
+#
+# This playbook will install some packages on cloud VM
+# Our cloud can be Horizon Cloud VM or Chameleon VMs or AWS VMs
+
+  - name: Install python3-kafka
+    apt: name=python3-kafka state=latest
+    become: yes
+
+  - name: Install python3-requests
+    apt: name=python3-requests state=latest
+    become: yes
+
+  - name: Install git
+    apt: name=git state=latest
+    become: yes
+
+  - name: Install default-jre (Java)
+    apt: name=default-jre state=latest
+    become: yes
+
+  - name: Install pip3
+    apt: name=python3-pip state=latest
+    become: yes
+
+  - name: Install boto3 (Python for AWS)
+    command: pip3 install boto3 #may have to check if python3/pip3 is installed
+
+
+  - name: Cloning project from github
+    git: 
+      repo: https://github.com/vandyteam8/PCCProject1.git
+      dest: /home/cc/PCCProject1
+      clone: yes
+
+  - name: Downloading Kafka tar
+    get_url:
+      url: https://downloads.apache.org/kafka/2.6.0/kafka_2.13-2.6.0.tgz
+      dest: /home/cc
+
+  - name: Unzipping Kafka tar
+    unarchive:
+      src: /home/cc/kafka_2.13-2.6.0.tgz
+      dest: /home/cc
+      remote_src: yes
+
+  - name: Replace Kafka brokerid with unique number
+    lineinfile:
+       dest: ~/kafka_2.13-2.6.0/config/server.properties
+       regexp: broker.id=0
+       line: broker.id.generation.enable=true
+       state: present
+
+  - name: Remove comment on listers
+    lineinfile:
+        dest: ~/kafka_2.13-2.6.0/config/server.properties
+        regexp: #listeners=PLAINTEXT://:9092
+        line: "listeners=PLAINTEXT://:9092"
+        state: present
+
+  #could setthis as a conditional with environment variable to set aws/chameleon
+
+  - name: Storing IP address for Zookeeper
+    set_fact:
+      ipaddress: 129.114.25.233
+      #"{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}" 
+      #"{{hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]}}"
+    run_once: yes
+
+  # THIS HAS NOT BEEN IMPLEMENTED YET
+
+  - name: Replace Kafka IP address -- advertised.listener set to FLOATING IP
+    lineinfile:
+        dest: ~/kafka_2.13-2.6.0/config/server.properties
+        regexp: advertised.listeners=PLAINTEXT://your.host.name:9092
+        line: "advertised.listeners=PLAINTEXT://{{ ansible_host }}:9092"
+        state: present
+
+  - name: Replace Zookeeper IP address
+    lineinfile:
+        dest: ~/kafka_2.13-2.6.0/config/server.properties
+        regexp: zookeeper.connect=localhost:2181
+        line: zookeeper.connect={{ ansible_facts.openstack_servers[0].accesIPv4 }}:2181
+        state: present
+
+    
+#  - name: Start kafka
+#    command: kafka*/bin/kafka-server-start.sh config/server.properties &
+#
+#  - name: Subscribe to kafka topics utilizations1
+#    command: kafka*/bin/kafka-topics.sh --zookeeper 54.145.170.98:2181 --create --topic utilizations1 --partitions 3 --replication-factor 2 &
+#
+#  - name: Subscribe to kafka topics utilizations2
+#    command: kafka*/bin/kafka-topics.sh --zookeeper 54.145.170.98:2181 --create --topic utilizations2 --partitions 3 --replication-factor 2
+#
+#  - name: Subscrive to kafka topic utilizations3
+#    command: kafka*/bin/kafka-topics.sh --zookeeper 54.145.170.98:2181 --create --topic utilizations1 --partitions 3 --replication-factor 2
+#
+#
+
+...
+
