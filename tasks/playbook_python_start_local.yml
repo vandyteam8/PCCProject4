@@ -1,0 +1,30 @@
+
+#
+# EECS 4287/5287: Principles of Cloud Computing
+# Author: Aniruddha Gokhale
+# Created: Fall 2016
+# Modified: Fall 2020
+#
+# This playbook will install some packages on cloud VM
+# Our cloud can be Horizon Cloud VM or Chameleon VMs or AWS VMs
+
+  - name: Install Python3-Kafka
+    become: yes
+    apt:
+      name: python3-kafka
+      state: present
+
+  - name: Install Python3-Requests
+    become: yes
+    apt:
+      name: python3-requests
+      state: present
+    
+  - name: Start Python Producer on Vagrant
+    command: python3 /home/vagrant/PCCProject1/KafkaStreamsPython/producer.py 129.114.25.233
+    async: 36000
+    poll: 0
+
+
+...
+

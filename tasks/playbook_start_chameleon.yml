@@ -1,0 +1,69 @@
+---
+#
+# EECS 4287/5287: Principles of Cloud Computing
+# Author: Aniruddha Gokhale
+# Created: Fall 2020
+#
+  - name: Start a cloud server
+    openstack.cloud.server:
+        state: present
+        cloud: chameleon   # this is the nickname from our clouds.yaml file
+        name: t8-vm1     
+        image: CC-Ubuntu18.04
+        key_name: t8-varun-evan-sam
+        timeout: 200
+        flavor: m1.small
+        security_groups: "default,kafka,couchdb"
+        network: CH-822922-net
+        auto_ip: yes
+    register: t8_vm1_params
+  - name: Add t8-vm1 to temporary inventory
+    add_host:
+      name: t8-vm1
+      groups: MyChameleonVMs
+      ansible_host: "{{ t8_vm1_params.openstack.accessIPv4 }}"
+      ansible_connection: ssh
+      ansible_ssh_private_key_file: /home/vagrant/.ssh/t8-varun-evan-sam.pem
+      ansible_user: cc
+  - name: Add t8-vm1 to Zookeeper
+    add_host:
+      name: t8-vm1
+      groups: MyZookeeper
+      ansible_host: "{{ t8_vm1_params.openstack.accessIPv4 }}"
+      ansible_connection: ssh
+      ansible_ssh_private_key_file: /home/vagrant/.ssh/t8-varun-evan-sam.pem
+      ansible_user: cc
+
+  - name: Start second cloud
+    openstack.cloud.server:
+        state: present
+        cloud: chameleon
+        name: t8-vm2
+        image: CC-Ubuntu18.04
+        key_name: t8-varun-evan-sam
+        timeout: 200
+        flavor: m1.small
+        security_groups: "default,kafka,couchdb"
+        network: CH-822922-net
+        auto_ip: yes
+    register: t8_vm2_params    
+  - name: Add t8-vm2 to temporary inventory
+    add_host:
+      name: t8-vm2
+      groups: MyChameleonVMs
+      ansible_host: "{{ t8_vm2_params.openstack.accessIPv4 }}"
+      ansible_connection: ssh
+      ansible_ssh_private_key_file: /home/vagrant/.ssh/t8-varun-evan-sam.pem
+      ansible_user: cc
+  - name: Add t8-vm2 to CouchDB
+    add_host:
+      name: t8-vm2
+      groups: MyCouchDB
+      ansible_host: "{{ t8_vm2_params.openstack.accessIPv4 }}"
+      ansible_connection: ssh
+      ansible_ssh_private_key_file: /home/vagrant/.ssh/t8-varun-evan-sam.pem
+      ansible_user: cc
+
+
+... 
+
