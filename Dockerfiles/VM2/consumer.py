@@ -7,8 +7,8 @@
 #
 # Purpose:
 #
-#    Demonstrate the use of Kafka Python streaming APIs.
-#    In this example, demonstrate Kafka streaming API to build a consumer.
+#    Demonstrate the use of kafka Python streaming APIs.
+#    In this example, demonstrate kafka streaming API to build a consumer.
 #
 
 import os   # need this for popen

@@ -45,18 +45,18 @@
       dest: /home/cc/PCCProject1
       clone: yes
 
-  - name: Downloading Kafka tar
+  - name: Downloading kafka tar
     get_url:
       url: https://downloads.apache.org/kafka/2.6.0/kafka_2.13-2.6.0.tgz
       dest: /home/cc
 
-  - name: Unzipping Kafka tar
+  - name: Unzipping kafka tar
     unarchive:
       src: /home/cc/kafka_2.13-2.6.0.tgz
       dest: /home/cc
       remote_src: yes
 
-  - name: Replace Kafka brokerid with unique number
+  - name: Replace kafka brokerid with unique number
     lineinfile:
        dest: ~/kafka_2.13-2.6.0/config/server.properties
        regexp: broker.id=0
@@ -79,7 +79,7 @@
       #"{{hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]}}"
     run_once: yes
 
-  - name: Replace Kafka IP address -- advertised.listener set to FLOATING IP
+  - name: Replace kafka IP address -- advertised.listener set to FLOATING IP
     lineinfile:
         dest: ~/kafka_2.13-2.6.0/config/server.properties
         regexp: advertised.listeners=PLAINTEXT://your.host.name:9092

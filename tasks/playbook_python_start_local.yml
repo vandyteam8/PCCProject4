@@ -8,7 +8,7 @@
 # This playbook will install some packages on cloud VM
 # Our cloud can be Horizon Cloud VM or Chameleon VMs or AWS VMs
 
-  - name: Install Python3-Kafka
+  - name: Install Python3-kafka
     become: yes
     apt:
       name: python3-kafka

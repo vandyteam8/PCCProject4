@@ -14,7 +14,7 @@
     async: 36000
     poll: 0
 
-  - name: Waiting for Kafka.
+  - name: Waiting for kafka.
     pause:
       seconds: 30
 
