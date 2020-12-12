@@ -36,7 +36,7 @@ def run(ipaddr):
 
     #wait for leader to write to log
     #TODO - might be nice to have this as run() argument
-    topic = "energyutilizations"
+    topic = "energyutilization"
 
     """
     # say we send the contents 100 times after a sleep of 1 sec in between
