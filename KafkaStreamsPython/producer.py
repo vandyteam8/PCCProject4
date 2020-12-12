@@ -28,7 +28,7 @@ import csv # reading energy data
 # (you will need to change this to your bootstrap server's IP addr)
 
 def run(ipaddr):
-    csvfile= "./energy-data/energy-sorted1M.csv"
+    csvfile= "./energy-sorted1M.csv"
 
     producer = KafkaProducer (bootstrap_servers="{}:9092".format(ipaddr),
                                     acks=1, value_serializer = lambda v:
