@@ -66,7 +66,7 @@ services:
     depends_on:
       - zoo1
   web:
-    build: .
+    build: ..
     
     
     
