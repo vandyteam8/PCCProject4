@@ -19,7 +19,7 @@ import time # for sleep
 from kafka import KafkaConsumer  # consumer of events
 import requests
 
-LOCALHOST = "0.0.0.0"
+LOCALHOST = "54.145.170.98"
 ipaddr = ""
 user = "admin"
 pword = "vandy2020"
