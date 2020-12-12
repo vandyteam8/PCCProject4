@@ -2,6 +2,7 @@ version: "3.3"
 services:
   zookeeper:
     build: ./zookeeper
+    hostname: zoo
     ports: 
       - target: 2181
         published: 2181
