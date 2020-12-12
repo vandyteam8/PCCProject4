@@ -23,7 +23,7 @@ transaction.state.log.min.isr=1 \n\
 log.retention.hours=168 \n\
 log.segment.bytes=1073741824 \n\
 log.retention.check.interval.ms=300000 \n\
-zookeeper.connect=127.0.0.1:2181 \n\
+zookeeper.connect=0.0.0.0:2181 \n\
 zookeeper.connection.timeout.ms=18000 \n\
 group.initial.rebalance.delay.ms=0" > /opt/kafka/config/server.properties
 
