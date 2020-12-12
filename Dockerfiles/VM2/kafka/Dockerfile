@@ -6,7 +6,7 @@ RUN tar xzf kafka_2.13-2.6.0.tgz -C /opt && mv /opt/kafka_* /opt/kafka
 
 RUN echo "auto.create.topics.enabled=1 \n\
 listeners=PLAINTEXT://:9092 \n\
-advertised.listeners=PLAINTEXT://172.31.86.248:9092 \n\
+advertised.listeners=PLAINTEXT://54.145.170.98:9092 \n\
 broker.id.generation.enable=true \n\
 listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL \n\
 num.network.threads=3 \n\
@@ -23,7 +23,7 @@ transaction.state.log.min.isr=1 \n\
 log.retention.hours=168 \n\
 log.segment.bytes=1073741824 \n\
 log.retention.check.interval.ms=300000 \n\
-zookeeper.connect=0.0.0.0:2181 \n\
+zookeeper.connect=localhost:2181 \n\
 zookeeper.connection.timeout.ms=18000 \n\
 group.initial.rebalance.delay.ms=0" > /opt/kafka/config/server.properties
 
