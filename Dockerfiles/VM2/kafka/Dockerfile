@@ -6,7 +6,7 @@ RUN tar xzf kafka_2.13-2.6.0.tgz -C /opt && mv /opt/kafka_* /opt/kafka
 
 RUN echo "auto.create.topics.enabled=1 \n\
 listeners=PLAINTEXT://:9092 \n\
-advertised.listeners=PLAINTEXT://129.114.26.88:9092 \n\
+advertised.listeners=PLAINTEXT://54.145.170.98:9092 \n\
 broker.id.generation.enable=true \n\
 listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL \n\
 num.network.threads=3 \n\
