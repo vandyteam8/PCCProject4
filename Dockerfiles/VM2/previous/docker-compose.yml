@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  zookeeper:
+    build: ../zookeeper
+    hostname: zoo
+    ports: 
+      - target: 2181
+        published: 2181
+        protocol: tcp
+        mode: host
+  kafka:
+    depends_on:
+      - zookeeper
+    build: ../kafka
+    ports:
+      - "9092:9092"
+    environment:
+      - IP1=54.145.170.98
