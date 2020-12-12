@@ -19,7 +19,7 @@ import os  # need this for popen
 import sys  # for ipaddr as a command line argumen
 import time  # for sleep
 from kafka import KafkaProducer  # producer of events
-import csv # reading energy data
+import csv  # reading energy data
 
 # We can make this more sophisticated/elegant but for now it is just
 # hardcoded to the setup I have on my local VMs
