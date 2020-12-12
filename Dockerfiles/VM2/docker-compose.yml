@@ -3,6 +3,8 @@ version: '2'
 services:
   zoo1:
     image: zookeeper:3.4.9
+    tty: true
+    stdin_open: true
     hostname: zoo1
     ports:
       - "2181:2181"
@@ -16,6 +18,8 @@ services:
 
   kafka1:
     image: confluentinc/cp-kafka:5.5.1
+    tty: true
+    stdin_open: true
     hostname: kafka1
     ports:
       - "9092:9092"
