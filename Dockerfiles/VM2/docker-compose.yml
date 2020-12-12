@@ -1,5 +1,9 @@
 version: '2'
 
+networks:
+  app-tier:
+    driver: bridge
+
 services:
   zoo1:
     image: zookeeper:3.4.9
