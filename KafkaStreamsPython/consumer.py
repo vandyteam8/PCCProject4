@@ -78,7 +78,7 @@ def dummyConsumer():
         time.sleep(1)
 
 def couchdbInterface(ip, d):
-    baseurl = "http://{user}:{pword}@{ipaddr}:5984/".format(user=user, pword=pword, ipaddr=ip)
+    baseurl = "http://{user}:{pword}@{ipaddr}:5984/".format(user=admin, pword=mysecretpassword, ipaddr=ip)
     url = baseurl + dbname
     data = json.dumps(d)
     s = requests.Session()
