@@ -37,7 +37,7 @@ def externalConsumer(ipaddr):
     # (you will need to change this to your bootstrap server's IP addr)
 
     print(socket.gethostbyname(LOCALHOST))
-    consumer = KafkaConsumer(bootstrap_servers="{}:9092".format(socket.gethostbyname(LOCALHOST)),
+    consumer = KafkaConsumer(bootstrap_servers="{}:9092".format(LOCALHOST),
                              value_deserializer = lambda m: json.loads(m.decode('utf-8')))
     consumer.subscribe(topics=["energyutilization"])
 
