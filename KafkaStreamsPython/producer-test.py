@@ -99,7 +99,6 @@ def run(ipaddr):
         # sleep a second
         time.sleep(1)
 
-
 def couchdbInterface(ip, d):
     baseurl = "http://{user}:{pword}@{ipaddr}:5984/".format(user=user, pword=pword, ipaddr=ip)
     url = baseurl + dbname

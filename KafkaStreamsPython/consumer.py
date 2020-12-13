@@ -24,7 +24,7 @@ import socket
 LOCALHOST = "54.145.170.98"
 ipaddr = ""
 user = "admin"
-pword = "vandy2020"
+pword = "vandy"
 
 dbname = "project4/"
 
@@ -56,7 +56,6 @@ def externalConsumer(ipaddr):
         # nor am I showing any code to connect to a backend database sink to
         # dump the incoming data. You will have to do that for the assignment.
 
-        
         couchdbInterface(ipaddr, msg.data)
 
     # we are done. As such, we are not going to get here as the above loop

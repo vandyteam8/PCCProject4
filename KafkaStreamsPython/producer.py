@@ -92,7 +92,7 @@ def run(ipaddr):
         {'topic' : topic, 
         'timestamp': timestamp, 
         'key': key,
-         'data': data})
+        'data': data})
 
         print("Sending")
         producer.flush()   # try to empty the sending buffer
