@@ -28,7 +28,7 @@ import couchdb
 import zmq                   # ZeroMQ library
 import json                  # json
 import pickle                # serialization
-import python-couchdb        # couchdb for querying db
+import couchdb        # couchdb for querying db
 
 import subprocess as sp      # unused in this impl
 
