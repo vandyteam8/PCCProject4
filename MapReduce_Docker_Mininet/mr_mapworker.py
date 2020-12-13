@@ -50,7 +50,7 @@ class MR_Map ():
 
     #------------------------------------------
     def init_worker (self):
-        """ Word count map worker initialization """
+        """ Energy map worker initialization """
         print("initializing map worker in directory: ", os.getcwd ())
 
         context = zmq.Context()
