@@ -91,10 +91,10 @@ def run(ipaddr):
                 'data': data
             }
 
-        print(key, data)
-        timestamp = time.asctime(time.gmtime(time.time()))
-        couchdbInterface(ipaddr, contents)
-        print("pushed")
+            print(key, data)
+            timestamp = time.asctime(time.gmtime(time.time()))
+            couchdbInterface(ipaddr, contents)
+            print("pushed")
 
         # sleep a second
         time.sleep(1)
