@@ -11,4 +11,4 @@ RUN apt-get install -y socket
 
 # ADD consumer.py ~/consumer.py
 
-CMD ["python3", "~/consumer.py", "34.195.182.141"]
+CMD ["python3", "/root/consumer.py", "34.195.182.141"]
