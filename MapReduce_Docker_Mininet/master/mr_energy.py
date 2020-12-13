@@ -49,7 +49,7 @@ def parseCmdLineArgs ():
     
     # add positional arguments in that order
     # parser.add_argument ("addrfile", help="File of host ip addresses")
-    parser.add_argument ("datafile", help="Big data file")
+    # parser.add_argument ("datafile", help="Big data file")
 
     # parse the args
     args = parser.parse_args ()
