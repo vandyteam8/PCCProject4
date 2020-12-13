@@ -27,6 +27,7 @@ import itertools             # nice iterators
 import zmq                   # ZeroMQ library
 import json                  # json
 import pickle                # serialization
+import couchdb               # couchdb for querying db
 
 import subprocess as sp      # unused in this impl
 
@@ -98,7 +99,7 @@ def barrier_sink (args):
 
                 # write all the entries into the csv file
                 for j in range (len(map_resp)):
-                    map_file.write (map_resp[j]['token'] + str (",") + str(map_resp[j]['val']) + "\n")
+                    map_file.write (map_resp[j]['token'] + str (",") + str(map_resp[j]['work_perf']) + str(",") + str(map_resp[j]['work_imp']) + "\n")
                 # close the file
                 map_file.close ()
                 
@@ -111,7 +112,7 @@ def barrier_sink (args):
 
                 # write the csv entries to the file.
                 for j in range (len(reduce_resp)):
-                    reduce_file.write (reduce_resp[j]['token'] + str (",") + str(reduce_resp[j]['val']) + "\n")
+                    reduce_file.write (reduce_resp[j]['token'] + str (",") + str(reduce_resp[j]['work_perf']) + str(",") + str(reduce_resp[j]['work_imp']) + "\n")
                     
                 # close the file
                 reduce_file.close ()
@@ -330,19 +331,24 @@ class MR_Framework ():
             # comprises the name of the datafile, the starting byte from the
             # file to read and the number of bytes to read.
 
+            #start couchdb session
+            couchserver = couchdb.Server("http://34.195.182.141:5984/")
+            db = couchserver['Project4']
+
             # compute the size of the datafile and create (almost) equal sized
             # chunks
-            doc_size = os.path.getsize (self.datafile)
+            doc_size = db.info()['doc_count']
             chunk_size = int (round (doc_size/self.M))  # integer division
-            print("doc size = ", doc_size, ", chunk size = ", chunk_size)
+            print("db size = ", doc_size, ", chunk size = ", chunk_size)
 
             # the starting location of the next chunk to read,
             # initialized to 0 (start)
             locn2read = 0  
 
             # handle to the input file
-            datafile = open (self.datafile,'r')
-        
+            for docid in db.view('_all_docs'):
+                datafile = datafile.append(docid['id'])
+
             # Note that we are splitting the file along bytes so it is
             # very much possible that a valid word may get split into
             # nonsensical two words but we don't care here and will treat
@@ -357,7 +363,7 @@ class MR_Framework ():
                 datafile.seek (locn2read, 0)
 
                 # read the chunk size
-                content = datafile.read (chunk_size)
+                content = datafile[locn2read:chunk_size]
                 
                 # create the argument to send to the task
                 map_arg = {'id': i,
