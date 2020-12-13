@@ -24,10 +24,11 @@ import csv                   # deal with CSV files
 import operator              # used in itertools
 import itertools             # nice iterators
 
+import couchdb
 import zmq                   # ZeroMQ library
 import json                  # json
 import pickle                # serialization
-import couchdb               # couchdb for querying db
+import python-couchdb        # couchdb for querying db
 
 import subprocess as sp      # unused in this impl
 
@@ -332,7 +333,7 @@ class MR_Framework ():
             # file to read and the number of bytes to read.
 
             #start couchdb session
-            couchserver = couchdb.Server("http://34.195.182.141:5984/")
+            couchserver = python-couchdb.Server("http://34.195.182.141:5984/")
             db = couchserver['project4']
 
             # compute the size of the datafile and create (almost) equal sized
