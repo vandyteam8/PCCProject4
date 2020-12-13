@@ -43,6 +43,7 @@ def externalConsumer(ipaddr):
 
     # we keep reading and printing
     for msg in consumer:
+        print(msg.value)
         # what we get is a record. From this record, we are interested in printing
         # the contents of the value field. We are sure that we get only the
         # utilizations topic because that is the only topic we subscribed to.
