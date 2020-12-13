@@ -19,15 +19,15 @@ import os
 import sys
 import time
 
-import re                    # regular expression
-import csv                   # deal with CSV files
-import operator              # used in itertools
-import itertools             # nice iterators
+import re               # regular expression
+import csv              # deal with CSV files
+import operator         # used in itertools
+import itertools        # nice iterators
 
-import zmq                   # ZeroMQ library
-import json                  # json
-import pickle                # serialization
-import couchdb        # couchdb for querying db
+import zmq              # ZeroMQ library
+import json             # json
+import pickle           # serialization
+import couchdb          # couchdb for querying db
 
 import subprocess as sp      # unused in this impl
 
