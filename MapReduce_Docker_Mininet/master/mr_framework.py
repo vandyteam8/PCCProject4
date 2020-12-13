@@ -154,7 +154,7 @@ class MR_Framework ():
         self.masterport = args.masterport     # port on which we push to workers
         self.iters = args.iters               # number of iterations
         self.metricsfile = args.metricsfile   # name of the big data file
-        self.datafile = args.datafile         # name of the big data file
+        # self.datafile = args.datafile         # name of the big data file
         self.uniquekeys = []                  # num of unique keys
         self.groups = []                      # num of groups per unique key
 
