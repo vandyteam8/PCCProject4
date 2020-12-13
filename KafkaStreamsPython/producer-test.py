@@ -75,7 +75,7 @@ def run(ipaddr):
         for row in csvReader:
             # uid={h, hhidpid}
             print(row)
-            key = [str(row[6]), str(row[5]), str(row[0])]  # tuple-dict as key
+            key = [str(row[6]), str(row[5]), str(row[4])]  # tuple-dict as key
             data = {
                 'id': int(row[0]),
                 'timestamp': int(row[1]),
