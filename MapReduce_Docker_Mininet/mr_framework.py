@@ -333,7 +333,7 @@ class MR_Framework ():
             # file to read and the number of bytes to read.
 
             #start couchdb session
-            couchserver = python-couchdb.Server("http://34.195.182.141:5984/")
+            couchserver = couchdb.Server("http://18.214.206.75/:5984/")
             db = couchserver['project4']
 
             # compute the size of the datafile and create (almost) equal sized
