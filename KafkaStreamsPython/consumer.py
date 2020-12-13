@@ -26,7 +26,7 @@ ipaddr = ""
 user = "admin"
 pword = "vandy"
 
-dbname = "project4/"
+dbname = "project5/"
 
 
 # We can make this more sophisticated/elegant but for now it is just
