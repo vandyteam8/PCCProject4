@@ -37,7 +37,7 @@ services:
   server-2:
     environment:
       COUCHDB_PASSWORD: vandy
-        COUCHDB_USER: admin
+      COUCHDB_USER: admin
       NODENAME: couchdb-2
     image: couchdb:2.3.0
     networks:
