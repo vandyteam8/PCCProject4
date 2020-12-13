@@ -43,7 +43,7 @@ def externalConsumer(ipaddr):
 
     # we keep reading and printing
     for msg in consumer:
-        print(msg.value)
+        print(msg.data)
         # what we get is a record. From this record, we are interested in printing
         # the contents of the value field. We are sure that we get only the
         # utilizations topic because that is the only topic we subscribed to.
@@ -57,7 +57,7 @@ def externalConsumer(ipaddr):
         # dump the incoming data. You will have to do that for the assignment.
 
         
-        couchdbInterface(ipaddr, msg.value)
+        couchdbInterface(ipaddr, msg.data)
 
     # we are done. As such, we are not going to get here as the above loop
     # is a forever loop.
