@@ -21,7 +21,7 @@ import requests
 import socket
 
 #LOCALHOST = "127.0.0.1"
-LOCALHOST = 'kafka1'
+LOCALHOST = 'vm2_kafka1_1'
 ipaddr = ""
 user = "admin"
 pword = "vandy2020"
