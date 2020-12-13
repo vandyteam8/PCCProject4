@@ -333,7 +333,7 @@ class MR_Framework ():
 
             #start couchdb session
             couchserver = couchdb.Server("http://34.195.182.141:5984/")
-            db = couchserver['Project4']
+            db = couchserver['project4']
 
             # compute the size of the datafile and create (almost) equal sized
             # chunks
