@@ -19,7 +19,8 @@ import time # for sleep
 from kafka import KafkaConsumer  # consumer of events
 import requests
 
-LOCALHOST = "127.0.0.1"
+#LOCALHOST = "127.0.0.1"
+LOCALHOST = "kafka1"
 ipaddr = ""
 user = "admin"
 pword = "vandy2020"
@@ -33,7 +34,7 @@ dbname = "project4/"
 def externalConsumer(ipaddr):
     # acquire the consumer
     # (you will need to change this to your bootstrap server's IP addr)
-    consumer = KafkaConsumer(bootstrap_servers="{}:9092".format(kafka1),
+    consumer = KafkaConsumer(bootstrap_servers="{}:9092".format(LOCALHOST),
                     value_deserializer = lambda m: json.loads(m.decode('utf-8')))
     consumer.subscribe(topics=["energyutilization"])
 
