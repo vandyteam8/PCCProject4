@@ -25,7 +25,7 @@ ENV TZ=America/New_York
 # Install the zeromq package
 RUN apt-get install -y python3-zmq
 RUN apt-get install -y python3-pandas
-RUN apt-get install -y python-couchdb
+RUN pip install CouchDB
 
 # Next, copy the files needed to run the map-reduce master
 COPY mr_energy.py /root/
