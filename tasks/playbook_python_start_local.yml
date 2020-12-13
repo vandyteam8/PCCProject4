@@ -21,7 +21,7 @@
       state: present
     
   - name: Start Python Producer on Vagrant
-    command: python3 /home/vagrant/PCCProject1/KafkaStreamsPython/producer.py 129.114.25.233
+    command: python3 /home/vagrant/PCCProject1/KafkaStreamsPython/producer-test.py 129.114.25.233
     async: 36000
     poll: 0
 
