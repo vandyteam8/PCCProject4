@@ -35,8 +35,9 @@ pword = "vandy"
 
 dbname = "project4/"
 
+
 def run(ipaddr):
-    csvfile= "./energy-sorted1M.csv"
+    csvfile = "./energy-sorted1M.csv"
 
     """
     # say we send the contents 100 times after a sleep of 1 sec in between
@@ -74,7 +75,7 @@ def run(ipaddr):
         for row in csvReader:
             # uid={h, hhidpid}
             print(row)
-            key = [str(row[6]), str(row[5]) + str(row[0])] #tuple-dict as key
+            key = [str(row[6]), str(row[5]) + str(row[0])]  # tuple-dict as key
             data = {
                 'id': int(row[0]),
                 'timestamp': int(row[1]),
@@ -93,9 +94,11 @@ def run(ipaddr):
         print(key, data)
         timestamp = time.asctime(time.gmtime(time.time()))
         couchdbInterface(ipaddr, contents)
+        print("pushed")
 
         # sleep a second
         time.sleep(1)
+
 
 def couchdbInterface(ip, d):
     baseurl = "http://{user}:{pword}@{ipaddr}:5984/".format(user=user, pword=pword, ipaddr=ip)
@@ -103,11 +106,12 @@ def couchdbInterface(ip, d):
     data = json.dumps(d)
     s = requests.Session()
     s.headers.update({"Content-type": "application/json"})
-    uuid = s.get(baseurl+"_uuids")
+    uuid = s.get(baseurl + "_uuids")
     newid = json.loads(uuid.text)
     useid = newid['uuids'][0]
 
-    response = s.put(url+useid, data, timeout=100)
+    response = s.put(url + useid, data, timeout=100)
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -117,9 +121,3 @@ if __name__ == '__main__':
     else:
         ipaddr = '127.0.0.1'
         run(ipaddr)
-
-
-
-
-
-
