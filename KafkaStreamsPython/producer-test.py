@@ -20,6 +20,7 @@ import sys  # for ipaddr as a command line argumen
 import time  # for sleep
 from kafka import KafkaProducer  # producer of events
 import csv  # reading energy data
+import requests
 
 # We can make this more sophisticated/elegant but for now it is just
 # hardcoded to the setup I have on my local VMs
@@ -96,7 +97,7 @@ def run(ipaddr):
         time.sleep (1)
 
 def couchdbInterface(ip, d):
-    baseurl = "http://{user}:{pword}@{ipaddr}:5984/".format(user=admin, pword=pword, ipaddr=ip)
+    baseurl = "http://{user}:{pword}@{ipaddr}:5984/".format(user=user, pword=pword, ipaddr=ip)
     url = baseurl + dbname
     data = json.dumps(d)
     s = requests.Session()
