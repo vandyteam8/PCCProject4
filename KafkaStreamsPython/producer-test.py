@@ -85,8 +85,9 @@ def run(ipaddr):
                 'house_id': int(row[6])
             }
 
-            contents = { 'key' : key,
-                'data' : data
+            contents = {
+                'key': key,
+                'data': data
             }
 
         print(key, data)
@@ -94,7 +95,7 @@ def run(ipaddr):
         couchdbInterface(ipaddr, contents)
 
         # sleep a second
-        time.sleep (1)
+        time.sleep(1)
 
 def couchdbInterface(ip, d):
     baseurl = "http://{user}:{pword}@{ipaddr}:5984/".format(user=user, pword=pword, ipaddr=ip)
