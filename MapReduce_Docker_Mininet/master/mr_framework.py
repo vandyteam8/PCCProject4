@@ -24,7 +24,6 @@ import csv                   # deal with CSV files
 import operator              # used in itertools
 import itertools             # nice iterators
 
-import couchdb
 import zmq                   # ZeroMQ library
 import json                  # json
 import pickle                # serialization
