@@ -7,6 +7,7 @@ RUN apt-get update
 RUN apt-get install -y python3
 RUN apt-get install -y python3-kafka
 RUN apt-get install -y python3-requests
+RUN apt-get install -y socket
 
 ADD consumer.py ~/consumer.py
 
