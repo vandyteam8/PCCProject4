@@ -27,6 +27,13 @@ import csv  # reading energy data
 # acquire the producer
 # (you will need to change this to your bootstrap server's IP addr)
 
+LOCALHOST = "127.0.0.1"
+ipaddr = ""
+user = "admin"
+pword = "vandy"
+
+dbname = "project4/"
+
 def run(ipaddr):
     csvfile= "./energy-sorted1M.csv"
 
@@ -77,23 +84,16 @@ def run(ipaddr):
                 'house_id': int(row[6])
             }
 
+            contents = { 'key' : key,
+                'data' : data
+            }
+
         print(key, data)
         timestamp = time.asctime(time.gmtime(time.time()))
+        couchdbInterface(ipaddr, contents)
 
-        producer.send (topic,
-        {'topic' : topic, 
-        'timestamp': timestamp, 
-        'key': key,
-         'data': data})
-
-        print("Sending")
-        producer.flush()   # try to empty the sending buffer
-        print("Sleeping")
         # sleep a second
         time.sleep (1)
-
-    # we are done
-    producer.close ()
 
 def couchdbInterface(ip, d):
     baseurl = "http://{user}:{pword}@{ipaddr}:5984/".format(user=admin, pword=pword, ipaddr=ip)
