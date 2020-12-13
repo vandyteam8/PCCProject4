@@ -21,6 +21,7 @@ import time  # for sleep
 from kafka import KafkaProducer  # producer of events
 import csv  # reading energy data
 
+
 # We can make this more sophisticated/elegant but for now it is just
 # hardcoded to the setup I have on my local VMs
 
@@ -28,14 +29,14 @@ import csv  # reading energy data
 # (you will need to change this to your bootstrap server's IP addr)
 
 def run(ipaddr):
-    csvfile= "./energy-sorted1M.csv"
+    csvfile = "./energy-sorted1M.csv"
 
-    producer = KafkaProducer (bootstrap_servers="{}:9092".format(ipaddr),
-                                    acks=1, value_serializer = lambda v:
-                                  json.dumps(v).encode('utf-8'))                                
+    producer = KafkaProducer(bootstrap_servers="{}:9092".format(ipaddr),
+                             acks=1, value_serializer=lambda v:
+        json.dumps(v).encode('utf-8'))
 
-    #wait for leader to write to log
-    #TODO - might be nice to have this as run() argument
+    # wait for leader to write to log
+    # TODO - might be nice to have this as run() argument
     topic = "energyutilization"
 
     """
@@ -74,7 +75,7 @@ def run(ipaddr):
         for row in csvReader:
             # uid={h, hhidpid}
             print(row)
-            key = [str(row[6]), str(row[5]) + str(row[0])] #tuple-dict as key
+            key = [str(row[6]), str(row[5]) + str(row[0])]  # tuple-dict as key
             data = {
                 'id': int(row[0]),
                 'timestamp': int(row[1]),
@@ -88,20 +89,21 @@ def run(ipaddr):
             print(key, data)
             timestamp = time.asctime(time.gmtime(time.time()))
 
-            producer.send (topic,
-            {'topic' : topic,
-            'timestamp': timestamp,
-            'key': key,
-            'data': data})
+            producer.send(topic,
+                          {'topic': topic,
+                           'timestamp': timestamp,
+                           'key': key,
+                           'data': data})
 
             print("Sending")
-            producer.flush()   # try to empty the sending buffer
+            producer.flush()  # try to empty the sending buffer
             print("Sleeping")
             # sleep a second
-        time.sleep (1)
+        time.sleep(1)
 
     # we are done
-    producer.close ()
+    producer.close()
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -111,9 +113,3 @@ if __name__ == '__main__':
     else:
         ipaddr = '127.0.0.1'
         run(ipaddr)
-
-
-
-
-
-
