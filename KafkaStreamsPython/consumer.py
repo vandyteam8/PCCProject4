@@ -34,8 +34,7 @@ dbname = "project4/"
 def externalConsumer(ipaddr):
     # acquire the consumer
     # (you will need to change this to your bootstrap server's IP addr)
-    consumer = KafkaConsumer(bootstrap_servers="{}:9092".format(LOCALHOST),
-                    value_deserializer = lambda m: json.loads(m.decode('utf-8')))
+    consumer = KafkaConsumer(bootstrap_servers="{}:9092".format(LOCALHOST), value_deserializer = lambda m: json.loads(m.decode('utf-8')))
     consumer.subscribe(topics=["energyutilization"])
 
     # we keep reading and printing
