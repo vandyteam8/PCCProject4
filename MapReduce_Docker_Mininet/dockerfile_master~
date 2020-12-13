@@ -24,7 +24,7 @@ RUN apt-get install -y python3-zmq
 RUN apt-get install -y python3-pandas
 
 # Next, copy the files needed to run the map-reduce master
-COPY mr_wordcount.py /root/
+COPY mr_energy.py /root/
 COPY mr_framework.py /root/
 COPY mr_thread.py /root/
 COPY big.txt /root
