@@ -85,19 +85,19 @@ def run(ipaddr):
                 'house_id': int(row[6])
             }
 
-        print(key, data)
-        timestamp = time.asctime(time.gmtime(time.time()))
+            print(key, data)
+            timestamp = time.asctime(time.gmtime(time.time()))
 
-        producer.send (topic,
-        {'topic' : topic, 
-        'timestamp': timestamp, 
-        'key': key,
-        'data': data})
+            producer.send (topic,
+            {'topic' : topic,
+            'timestamp': timestamp,
+            'key': key,
+            'data': data})
 
-        print("Sending")
-        producer.flush()   # try to empty the sending buffer
-        print("Sleeping")
-        # sleep a second
+            print("Sending")
+            producer.flush()   # try to empty the sending buffer
+            print("Sleeping")
+            # sleep a second
         time.sleep (1)
 
     # we are done
